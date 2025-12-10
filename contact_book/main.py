@@ -39,5 +39,4 @@ while user_input == "exit":
         print("Exiting the contact book.")
         break
     
-    
         
