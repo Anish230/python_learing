@@ -1,0 +1,2 @@
+bannan,50
+bread,25
