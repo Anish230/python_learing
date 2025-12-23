@@ -1,17 +1,53 @@
-import os
+import os # this is to check if file is present with in the scope of the program
 
+# this program take iteam name and price and add it ti file "expanses.txt" in "iteam_name,iteam_price" format
 def add_expanse ():
-    expanse_name = input("Enter the Describe of Expanse")
-    expanse_price = input("Enter the amount for your expanse")
-    with open("expanses.txt","a") as f:
-        f.write(expanse_name,",",expanse_price,"\n")
+    expanse_name = input("Enter the Describe of Expanse\n")
+    expanse_price = input("Enter the amount for your expanse\n ")
+    with open("expanses.txt","a") as expanse_file:
+        expanse_file.write(f"{expanse_name},{expanse_price}\n")
     print("Saved!")
 
 def view_total():
     total=0
-    with open("expanses.txt","r") as f:
-         for line in f:
-             clean_line = line.string()
-             expanse_D_and_P = clean_line.split(",")
+    with open("expanses.txt","r") as expanse_file:
+         for line in expanse_file:
              
-         
+             clean_line = line.strip() # this clean the strint of any space 
+             expanse_D_and_P = clean_line.split(",") # .split is used to with "," when function find "," it split the variable.
+             
+             name = expanse_D_and_P[0] # the first part is name 
+             price = int(expanse_D_and_P[1]) # sceond part is price 
+             
+             print("Iteam: ",name,"  ","Price: ",price)
+             total += price # total = toal+price
+             
+    print("--------------------")
+    print("GRAND TOTAL: ",total)
+    print("--------------------")
+
+filename = "expanses.txt"
+
+if not os.path.exists(filename):  # checks if file exists or not
+    print("no file was fond. Creating a new file ") 
+    with open (filename, "w") as expanse_file: # if file is not found it will create a new file expanses.txt
+        pass # this done because i use with to open a file and there must be a code when using with
+    
+while True: # loop only start with true ie. 1, 2, 3 are true and other are false
+
+    print("\n1. Add expanse")
+    print("\n2. View expanse")
+    print("\n3. Exit")
+        
+    choioce = input("Choose: ")
+        
+        
+    if choioce == "1" :
+        add_expanse()
+        
+    elif choioce == "2" :
+        view_total()
+            
+    elif choioce == "3" :
+        break
+        
