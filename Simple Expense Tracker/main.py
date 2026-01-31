@@ -51,6 +51,66 @@ def remove_expanse():
     else:
         print("Expanse not found!")
 
+def update_expanse_name():
+    target_name = input("Enter the name of the expanse to update the NAME for: \n")
+
+    with open("expanses.txt", "r") as expanse_file:
+        expenses = expanse_file.readlines()
+
+    found = False
+    with open("expanses.txt", "w") as expanse_file:
+        for line in expenses:
+            clean_line = line.strip()
+            if not clean_line:
+                continue
+            parts = clean_line.split(",", 1)
+            name = parts[0]
+            price = parts[1] if len(parts) > 1 else ""
+
+            if name.lower() == target_name.lower():
+                found = True
+                new_name = input(f"Enter new name (leave blank to keep '{name}'): \n")
+                if not new_name:
+                    new_name = name
+                expanse_file.write(f"{new_name},{price}\n")
+            else:
+                expanse_file.write(line)
+
+    if found:
+        print("Name updated!")
+    else:
+        print("Expanse not found!")
+
+def update_expanse_price():
+    target_name = input("Enter the name of the expanse to update the PRICE for: \n")
+
+    with open("expanses.txt", "r") as expanse_file:
+        expenses = expanse_file.readlines()
+
+    found = False
+    with open("expanses.txt", "w") as expanse_file:
+        for line in expenses:
+            clean_line = line.strip()
+            if not clean_line:
+                continue
+            parts = clean_line.split(",", 1)
+            name = parts[0]
+            price = parts[1] if len(parts) > 1 else ""
+
+            if name.lower() == target_name.lower():
+                found = True
+                new_price = input(f"Enter new price (leave blank to keep '{price}'): \n")
+                if not new_price:
+                    new_price = price
+                expanse_file.write(f"{name},{new_price}\n")
+            else:
+                expanse_file.write(line)
+
+    if found:
+        print("Price updated!")
+    else:
+        print("Expanse not found!")
+
 filename = "expanses.txt"
 
 if not os.path.exists(filename):  # checks if file exists or not
@@ -62,8 +122,10 @@ while True: # loop only start with true ie. 1, 2, 3 are true and other are false
 
     print("\n1. Add expanse")
     print("\n2. View expanse")
-    print("\n3. Remove expanse")
-    print("\n4. Exit")
+    print("\n3. Update expanse NAME")
+    print("\n4. Update expanse PRICE")
+    print("\n5. Remove expanse")
+    print("\n6. Exit")
         
     choioce = input("Choose: ")
         
@@ -75,8 +137,14 @@ while True: # loop only start with true ie. 1, 2, 3 are true and other are false
         view_total()
     
     elif choioce == "3" :
+        update_expanse_name()
+    
+    elif choioce == "4" :
+        update_expanse_price()
+    
+    elif choioce == "5" :
         remove_expanse()
             
-    elif choioce == "4" :
+    elif choioce == "6" :
         break
         
