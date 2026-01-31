@@ -93,7 +93,7 @@ if not os.path.exists(filename):  # checks if file exists or not
             
         elif menu_s ==5:
             print("Saving inventory and exiting...")
-            with open(filename, "w") as file:
+            with open(filename, "a") as file:
                 json.dump(inventory, file, indent=4)
             break 
             

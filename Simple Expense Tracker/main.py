@@ -26,6 +26,31 @@ def view_total():
     print("GRAND TOTAL: ",total)
     print("--------------------")
 
+def remove_expanse():
+    expanse_name = input("Enter the name of the expanse to remove: \n")
+    
+    # Read all expenses
+    expenses = []
+    with open("expanses.txt","r") as expanse_file:
+        expenses = expanse_file.readlines()
+    
+    # Filter out the expense to remove
+    found = False
+    with open("expanses.txt","w") as expanse_file:
+        for line in expenses:
+            clean_line = line.strip()
+            if clean_line:  # ignore empty lines
+                name = clean_line.split(",")[0]
+                if name.lower() != expanse_name.lower():  # keep all except the one to remove
+                    expanse_file.write(line)
+                else:
+                    found = True
+    
+    if found:
+        print("Expanse removed!")
+    else:
+        print("Expanse not found!")
+
 filename = "expanses.txt"
 
 if not os.path.exists(filename):  # checks if file exists or not
@@ -37,7 +62,8 @@ while True: # loop only start with true ie. 1, 2, 3 are true and other are false
 
     print("\n1. Add expanse")
     print("\n2. View expanse")
-    print("\n3. Exit")
+    print("\n3. Remove expanse")
+    print("\n4. Exit")
         
     choioce = input("Choose: ")
         
@@ -47,7 +73,10 @@ while True: # loop only start with true ie. 1, 2, 3 are true and other are false
         
     elif choioce == "2" :
         view_total()
-            
+    
     elif choioce == "3" :
+        remove_expanse()
+            
+    elif choioce == "4" :
         break
         
